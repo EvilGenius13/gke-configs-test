@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pokeapp-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: pokeapp-static-ip
+    networking.gke.io/managed-certificates: pokeapp-certificate
+spec:
+  rules:
+  - host: gke.ithinkthis.works
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pokeapp-service
+            port:
+              number: 5000
